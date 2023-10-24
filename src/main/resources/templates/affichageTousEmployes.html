@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>EMPLOYES</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table border="1">
+    <th>NOM</th>
+    <th>PRENOM</th>
+    <th>MAIL</th>
+    <tr th:each="unEmploye : ${mesEmployes}">
+        <td th:text="${unEmploye.nom}"/>
+        <td th:text="${unEmploye.prenom}"/>
+        <td th:text="${unEmploye.mail}"/>
+    </tr>
+</table>
+</body>
+</html>
