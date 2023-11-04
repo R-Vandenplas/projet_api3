@@ -9,7 +9,7 @@ import java.util.List;
 public interface InterfMessageService extends InterfService<Message>{
     public List<Message> read(String objet);
 
-    Message read(String objet, String prenom, LocalDate date);
+    Message read(String objet, String contenu, LocalDate date);
 
     List<Message> getMessages(Employe emp);
 }

@@ -25,5 +25,6 @@ public class Service {
 
 
     private BigDecimal budget;
-
+    @OneToMany(mappedBy = "service")
+    private List<Employe> employes=new ArrayList<>();
 }

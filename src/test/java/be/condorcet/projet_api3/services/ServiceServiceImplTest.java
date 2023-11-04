@@ -23,7 +23,7 @@ class ServiceServiceImplTest {
     @BeforeEach
     void setUp() {
         try {
-            serv = new Service(null, "testNom", new BigDecimal(1000));
+            serv = new Service(null, "testNom", new BigDecimal(1000),new ArrayList<>());
             serviceServiceImpl.create(serv);
             System.out.println("création du service : " + serv);
         } catch (Exception e) {
@@ -47,7 +47,9 @@ class ServiceServiceImplTest {
         int numserv = serv.getId_service();
         try {
             Service s = serviceServiceImpl.read(numserv);
-            assertEquals(serv, s, "La recherche n'a pas envoyer le bon serice");
+            assertEquals(numserv, s.getId_service(), "id différent");
+            assertEquals("testNom", s.getNom(), "nom service non enregistré : " + s.getNom() + " au lieu de testNom");
+            assertEquals(new BigDecimal(1000), s.getBudget(), "budget service non enregistré : " + s.getBudget() + " au lieu de 1000");
         } catch (Exception e) {
             fail("recherche infructueuse " + e);
         }
@@ -78,7 +80,8 @@ class ServiceServiceImplTest {
         BigDecimal budget = serv.getBudget();
         try {
             List<Service> ls = serviceServiceImpl.read(budget);
-            assertEquals(serv, ls.get(0), "La recherche n'a pas envoyer le bon employe");
+            assertEquals("testNom", ls.get(0).getNom(), "nom service non enregistré : " + ls.get(0).getNom() + " au lieu de testNom");
+            assertEquals(new BigDecimal(1000), ls.get(0).getBudget(), "budget service non enregistré : " + ls.get(0).getBudget() + " au lieu de 1000");
         } catch (Exception e) {
             fail("recherche infructueuse " + e);
         }

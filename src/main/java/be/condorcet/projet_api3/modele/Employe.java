@@ -29,18 +29,6 @@ public class Employe {
     @OneToMany(mappedBy = "emetteur")
     private List<Message>msg =new ArrayList<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employe employe = (Employe) o;
-        return Objects.equals(idemploye, employe.idemploye) && mail.equals(employe.mail) && nom.equals(employe.nom) && prenom.equals(employe.prenom);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idemploye, mail, nom, prenom);
-    }
 }
 
 

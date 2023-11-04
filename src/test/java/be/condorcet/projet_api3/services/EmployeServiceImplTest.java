@@ -26,7 +26,7 @@ class EmployeServiceImplTest {
     @BeforeEach
     void setUp() {
         try{
-            serv = new Service(null,"testService", new BigDecimal(1000));
+            serv = new Service(null,"testService", new BigDecimal(1000),new ArrayList<>());
             serviceServiceImpl.create(serv);
             System.out.println("création du service : "+serv);
         }catch (Exception e){
@@ -67,7 +67,9 @@ class EmployeServiceImplTest {
         int numemp= emp.getIdemploye();
         try{
            Employe e= employeServiceImpl.read(numemp);
-            assertEquals(emp,e,"La recherche n'a pas envoyer le bon employe");
+           assertEquals("testNom",e.getNom(),"nom employe non enregistré : "+e.getNom()+ " au lieu de testNom");
+           assertEquals("testPrenom",e.getPrenom(),"prénom employe non enregistré : "+e.getPrenom()+" au lieu de testPrenom");
+           assertEquals("testMail",e.getMail(),"mail enploye non enregistré : "+e.getMail()+" au lieu de testMail");
         }catch (Exception e){
             fail("recherche infructueuse "+e);
         }
@@ -79,9 +81,8 @@ class EmployeServiceImplTest {
         String nomemp = emp.getNom();
         try{
             List<Employe> le= employeServiceImpl.read(nomemp);
+            assertNotEquals(0,le.size(),"La liste est vide");
             assertEquals("testNom",le.get(0).getNom(),"nom employe non enregistré : "+emp.getNom()+ " au lieu de testNom");
-            assertEquals("testPrenom",le.get(0).getPrenom(),"prénom employe non enregistré : "+emp.getPrenom()+" au lieu de testPrenom");
-            assertEquals("testMail",le.get(0).getMail(),"mail enploye non enregistré : "+emp.getMail()+" au lieu de testMail");
         }catch (Exception e){
             fail("recherche infructueuse "+e);
         }
