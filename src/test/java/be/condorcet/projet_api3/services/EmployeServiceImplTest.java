@@ -160,7 +160,7 @@ class EmployeServiceImplTest {
             Assertions.assertThrows(Exception.class, () -> {
                 System.out.println("supression de l'employé avec un message");
                 employeServiceImpl.delete(emp);
-            },"effacement réalisé malgré commande liée");
+            },"effacement réalisé malgré le message liée");
             System.out.println("supression du message");
             messageServiceImpl.delete(mes);
         }catch (Exception e){
