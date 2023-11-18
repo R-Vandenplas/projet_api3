@@ -1,5 +1,6 @@
 package be.condorcet.projet_api3.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,8 @@ public class Service {
 
 
     private BigDecimal budget;
+    @JsonIgnore
     @OneToMany(mappedBy = "service")
+    @ToString.Exclude
     private List<Employe> employes=new ArrayList<>();
 }

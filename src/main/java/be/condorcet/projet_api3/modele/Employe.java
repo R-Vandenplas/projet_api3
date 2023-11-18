@@ -1,5 +1,6 @@
 package be.condorcet.projet_api3.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +27,9 @@ public class Employe {
     private String prenom;
     @NonNull @ManyToOne() @JoinColumn(name="IDSERVICE")
     private Service service;
+    @JsonIgnore
     @OneToMany(mappedBy = "emetteur")
+    @ToString.Exclude
     private List<Message>msg =new ArrayList<>();
 
 }

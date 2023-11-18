@@ -116,6 +116,13 @@ class MessageServiceImplTest {
         assertEquals(LocalDate.of(01,01,01),mes.getDateenvoi(),"date du message non enregistré : "+ mes.getDateenvoi()+"au lieu de "+LocalDate.of(01,01,01));
         assertEquals("testNom",mes.getEmetteur().getNom(),"nom employe non enregistré : "+mes.getEmetteur().getNom()+ " au lieu de testNom");
     }
+    @Test
+    void doublon(){
+        Message db = new Message(null,"testObjet","testContenu",LocalDate.of(01,01,01),emp);
+        Assertions.assertThrows(Exception.class, () -> {
+            messageServiceImpl.create(db);
+        },"employe ajouté alors que déjà present");
+    }
 
     @Test
     void testRead1() {

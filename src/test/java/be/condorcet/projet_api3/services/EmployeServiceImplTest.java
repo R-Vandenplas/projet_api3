@@ -1,6 +1,7 @@
 package be.condorcet.projet_api3.services;
 
 import be.condorcet.projet_api3.modele.Employe;
+import be.condorcet.projet_api3.modele.Message;
 import be.condorcet.projet_api3.modele.Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,11 @@ class EmployeServiceImplTest {
     private InterfEmployeService employeServiceImpl;
     @Autowired
     private InterfServiceService serviceServiceImpl;
+    @Autowired
+    private InterfMessageService messageServiceImpl;
     Employe emp;
     Service serv ;
+    Message mes;
     @BeforeEach
     void setUp() {
         try{
@@ -95,6 +100,13 @@ class EmployeServiceImplTest {
         assertEquals("testPrenom",emp.getPrenom(),"prénom employe non enregistré : "+emp.getPrenom()+" au lieu de testPrenom");
         assertEquals("testMail",emp.getMail(),"mail enploye non enregistré : "+emp.getMail()+" au lieu de testMail");
     }
+    @Test
+    void create_doublon(){
+        Employe db= new Employe(null,"testMail","testNom","testPrenom",serv,new ArrayList<>());
+        Assertions.assertThrows(Exception.class, () -> {
+            employeServiceImpl.create(db);
+        },"employe ajouté alors que déjà present");
+    }
 
     @Test
     void testRead1() {
@@ -137,6 +149,24 @@ class EmployeServiceImplTest {
             fail("erreur d'effacement "+e);
         }
     }
+    @Test
+    void deleteAvecMessage(){
+        try{
+            mes= new Message(null,"testObjet","testContenu", LocalDate.of(01,01,01),emp);
+            System.out.println("Creation du message : "+mes);
+            messageServiceImpl.create(mes);
+            emp.getMsg().add(mes);
+            employeServiceImpl.update(emp);
+            Assertions.assertThrows(Exception.class, () -> {
+                System.out.println("supression de l'employé avec un message");
+                employeServiceImpl.delete(emp);
+            },"effacement réalisé malgré commande liée");
+            System.out.println("supression du message");
+            messageServiceImpl.delete(mes);
+        }catch (Exception e){
+            fail("erreur d'effacement "+e);
+        }
+    }
 
     @Test
     void all() {
@@ -147,5 +177,6 @@ class EmployeServiceImplTest {
         }catch (Exception e){
             fail("erreur de recherche de tous les employes "+e);
         }
+
     }
 }

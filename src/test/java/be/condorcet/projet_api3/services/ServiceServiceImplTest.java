@@ -1,5 +1,6 @@
 package be.condorcet.projet_api3.services;
 
+import be.condorcet.projet_api3.modele.Employe;
 import be.condorcet.projet_api3.modele.Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,10 @@ class ServiceServiceImplTest {
 
     @Autowired
     private InterfServiceService serviceServiceImpl;
+    @Autowired
+    private InterfEmployeService employeServiceImpl;
     Service serv;
+    Employe emp;
 
     @BeforeEach
     void setUp() {
@@ -40,6 +45,14 @@ class ServiceServiceImplTest {
         } catch (Exception e) {
             System.out.println("erreur d'effacement du service " + e);
         }
+    }
+    @Test
+    void doublon(){
+        Service s = new Service(null, "testNom", new BigDecimal(1000),new ArrayList<>());
+        Assertions.assertThrows(Exception.class, () -> {
+            serviceServiceImpl.create(s);
+        },"service aj alors que déjà present");
+
     }
 
     @Test
@@ -109,6 +122,25 @@ class ServiceServiceImplTest {
             }, "record non effacé");
         } catch (Exception e) {
             fail("erreur d'effacement " + e);
+        }
+    }
+
+    @Test
+    void deleteAvecEmploye(){
+        try{
+            emp= new Employe(null,"testMail","testNom","testPrenom",serv,new ArrayList<>());
+            System.out.println("Creation de l'employe : "+emp);
+            employeServiceImpl.create(emp);
+            serv.getEmployes().add(emp);
+            serviceServiceImpl.update(serv);
+            assertThrows(Exception.class, () -> {
+                System.out.println("suppression du service avec un employé");
+                serviceServiceImpl.delete(serv);
+            },"effacement réalisé malgré employe liée");
+            System.out.println("suppression de l'employe");
+            employeServiceImpl.delete(emp);
+        }catch (Exception e){
+            fail("erreur d'effacement "+e);
         }
     }
 
