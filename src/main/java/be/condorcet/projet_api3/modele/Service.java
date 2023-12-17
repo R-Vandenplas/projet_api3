@@ -1,14 +1,14 @@
 package be.condorcet.projet_api3.modele;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 @Data
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class Service {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_generator")
     @SequenceGenerator(name="service_generator", sequenceName = "APISERVICE_SEQ", allocationSize=1)
-    private Integer id_service;
+    private Integer idservice;
 
     private String nom;
 
@@ -30,4 +30,5 @@ public class Service {
     @OneToMany(mappedBy = "service")
     @ToString.Exclude
     private List<Employe> employes=new ArrayList<>();
+
 }

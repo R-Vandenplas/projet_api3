@@ -44,7 +44,7 @@ public class RestMessage {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Message> majMessage(@PathVariable(value = "id") int id,@RequestBody Message nouvmes) throws Exception{
         System.out.println("maj du message n° " + id);
-        nouvmes.setId_message(id);
+        nouvmes.setIdmessage(id);
         Message messact = messageServiceImpl.update(nouvmes);
         return new ResponseEntity<>(messact, HttpStatus.OK);
     }

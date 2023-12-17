@@ -1,7 +1,6 @@
 package be.condorcet.projet_api3.webservices;
 
 
-import be.condorcet.projet_api3.modele.Employe;
 import be.condorcet.projet_api3.modele.Service;
 import be.condorcet.projet_api3.services.InterfEmployeService;
 import be.condorcet.projet_api3.services.InterfServiceService;
@@ -38,7 +37,7 @@ public class RestService {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<Service> createMessage(@RequestBody Service serv) throws Exception {
-        System.out.println("Création du service " + serv.getId_service());
+        System.out.println("Création du service " + serv.getIdservice());
         serviceServiceImpl.create(serv);
         return new ResponseEntity<>(serv, HttpStatus.OK);
     }
@@ -46,7 +45,7 @@ public class RestService {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Service> majService(@PathVariable(value = "id") int id,@RequestBody Service nouvserv) throws Exception{
         System.out.println("maj du service n° " + id);
-        nouvserv.setId_service(id);
+        nouvserv.setIdservice(id);
         Service servact = serviceServiceImpl.update(nouvserv);
         return new ResponseEntity<>(servact, HttpStatus.OK);
     }

@@ -44,14 +44,14 @@ public class ServiceServiceImpl implements InterfServiceService{
 
     @Override
     public Service update(Service service) throws Exception {
-        read(service.getId_service());
+        read(service.getIdservice());
         serviceRepository.save(service);
         return service;
     }
 
     @Override
     public void delete(Service service) throws Exception {
-        serviceRepository.deleteById(service.getId_service());
+        serviceRepository.deleteById(service.getIdservice());
     }
 
     @Override

@@ -82,10 +82,10 @@ class MessageServiceImplTest {
 
     @Test
     void read() {
-        int nummes= mes.getId_message();
+        int nummes= mes.getIdmessage();
         try{
             Message m= messageServiceImpl.read(nummes);
-            assertEquals(nummes,m.getId_message(),"id different");
+            assertEquals(nummes,m.getIdmessage(),"id different");
             assertEquals("testObjet",m.getObjet(),"objet message non enregistré : "+m.getObjet()+ " au lieu de testObjet");
             assertEquals("testContenu",m.getContenu(),"contenu message non enregistré : "+m.getContenu()+" au lieu de testContenu");
             assertEquals(LocalDate.of(01,01,01),m.getDateenvoi(),"date du message non enregistré : "+ m.getDateenvoi()+"au lieu de "+LocalDate.of(01,01,01));
@@ -110,7 +110,7 @@ class MessageServiceImplTest {
 
     @Test
     void create() {
-        assertNotEquals(0,mes.getId_message(),"id message non incrémenté");
+        assertNotEquals(0,mes.getIdmessage(),"id message non incrémenté");
         assertEquals("testObjet",mes.getObjet(),"objet message non enregistré : "+mes.getObjet()+ " au lieu de testObjet");
         assertEquals("testContenu",mes.getContenu(),"contenu message non enregistré : "+mes.getContenu()+" au lieu de testContenu");
         assertEquals(LocalDate.of(01,01,01),mes.getDateenvoi(),"date du message non enregistré : "+ mes.getDateenvoi()+"au lieu de "+LocalDate.of(01,01,01));
@@ -165,7 +165,7 @@ class MessageServiceImplTest {
         try {
             messageServiceImpl.delete(mes);
             Assertions.assertThrows(Exception.class, () -> {
-                messageServiceImpl.read(mes.getId_message());
+                messageServiceImpl.read(mes.getIdmessage());
             },"record non effacé");
         }catch (Exception e){
             fail("erreur d'effacement "+e);

@@ -5,10 +5,6 @@ import lombok.*;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +16,7 @@ import java.util.Objects;
 public class Message {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_generator")
     @SequenceGenerator(name="message_generator", sequenceName = "APIMESSAGE_SEQ", allocationSize=1)
-    private Integer id_message;
+    private Integer idmessage;
 
     private String objet;
     @NonNull

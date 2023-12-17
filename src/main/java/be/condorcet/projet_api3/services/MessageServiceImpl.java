@@ -44,14 +44,14 @@ public class MessageServiceImpl implements InterfMessageService{
 
     @Override
     public Message update(Message message) throws Exception {
-        read(message.getId_message());
+        read(message.getIdmessage());
         messageRepository.save(message);
         return message;
     }
 
     @Override
     public void delete(Message message) throws Exception {
-        messageRepository.deleteById(message.getId_message());
+        messageRepository.deleteById(message.getIdmessage());
     }
 
     @Override

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,10 +56,10 @@ class ServiceServiceImplTest {
 
     @Test
     void read() {
-        int numserv = serv.getId_service();
+        int numserv = serv.getIdservice();
         try {
             Service s = serviceServiceImpl.read(numserv);
-            assertEquals(numserv, s.getId_service(), "id différent");
+            assertEquals(numserv, s.getIdservice(), "id différent");
             assertEquals("testNom", s.getNom(), "nom service non enregistré : " + s.getNom() + " au lieu de testNom");
             assertEquals(new BigDecimal(1000), s.getBudget(), "budget service non enregistré : " + s.getBudget() + " au lieu de 1000");
         } catch (Exception e) {
@@ -82,7 +81,7 @@ class ServiceServiceImplTest {
 
     @Test
     void create() {
-        assertNotEquals(0, serv.getId_service(), "id service non incrémenté");
+        assertNotEquals(0, serv.getIdservice(), "id service non incrémenté");
         assertEquals("testNom", serv.getNom(), "nom service non enregistré : " + serv.getNom() + " au lieu de testNom");
         assertEquals(new BigDecimal(1000), serv.getBudget(), "budget service non enregistré : " + serv.getBudget() + " au lieu de 1000");
 
@@ -118,7 +117,7 @@ class ServiceServiceImplTest {
         try {
             serviceServiceImpl.delete(serv);
             assertThrows(Exception.class, () -> {
-                serviceServiceImpl.read(serv.getId_service());
+                serviceServiceImpl.read(serv.getIdservice());
             }, "record non effacé");
         } catch (Exception e) {
             fail("erreur d'effacement " + e);

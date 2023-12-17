@@ -11,7 +11,7 @@
     <th>CONTENU</th>
     <th>DATE</th>
     <tr th:each="unMessage : ${mesMessages}">
-        <td th:text="${unMessage.id_message}"/>
+        <td th:text="${unMessage.getIdmessage}"/>
         <td th:text="${unMessage.objet}"/>
         <td th:text="${unMessage.contenu}"/>
         <td th:text="${unMessage.dateenvoi}"/>
