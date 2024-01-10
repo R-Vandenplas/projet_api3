@@ -63,5 +63,9 @@ public class MessageServiceImpl implements InterfMessageService{
         List<Message> lemp = messageRepository.findMessageByEmetteur(emp);
         return lemp;
     }
+    @Override
+    public List<Message> getMessages(Employe emp, LocalDate date1, LocalDate date2) {
+        return  messageRepository.findMessagesByDateenvoiIsBetweenAndEmetteur(date1,date2,emp);
+    }
 
 }

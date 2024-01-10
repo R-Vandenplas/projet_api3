@@ -12,4 +12,6 @@ public interface InterfMessageService extends InterfService<Message>{
     Message read(String objet, String contenu, LocalDate date);
 
     List<Message> getMessages(Employe emp);
+
+    List<Message> getMessages(Employe emp, LocalDate date1, LocalDate date2);
 }

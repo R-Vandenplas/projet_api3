@@ -5,10 +5,12 @@ import be.condorcet.projet_api3.modele.Message;
 import be.condorcet.projet_api3.services.InterfEmployeService;
 import be.condorcet.projet_api3.services.InterfMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 @RestController
@@ -62,6 +64,18 @@ public class RestMessage {
         System.out.println("recherche de toutes les messages");
         return new ResponseEntity<>(messageServiceImpl.all(), HttpStatus.OK);
     }
+    @RequestMapping("/dates")
+    public ResponseEntity<List<Message>> getMessageEmploye(
+            @RequestParam(value = "idemploye") int id,
+            @RequestParam(value = "date1") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date1,
+            @RequestParam(value = "date2") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date2) throws Exception {
+
+        System.out.println("recherche des messages de l'employe d'id " + id + " entre " + date1 + " et " + date2);
+        Employe emp = employeServiceImpl.read(id);
+        List<Message> lmes = messageServiceImpl.getMessages(emp, date1, date2);
+        return new ResponseEntity<>(lmes, HttpStatus.OK);
+    }
+
 
 
     @ExceptionHandler({Exception.class})

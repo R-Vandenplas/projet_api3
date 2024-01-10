@@ -17,4 +17,6 @@ public interface MessageRepository extends JpaRepository<Message,Integer> {
     List<Message> findByObjetAndContenuAndDateenvoi(String objet, String contenu, LocalDate date);
 
     List<Message> findMessageByEmetteur(Employe emetteur);
+
+    List<Message> findMessagesByDateenvoiIsBetweenAndEmetteur(LocalDate date1, LocalDate date2, Employe emetteur);
 }
